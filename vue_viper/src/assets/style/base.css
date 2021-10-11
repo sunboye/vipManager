@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background:url("../bg3.jpg") no-repeat center center;
+    background-size:cover;
+    background-attachment:fixed;
+    /* background: linear-gradient(45deg,#4a5064, #373d41); */
+}
