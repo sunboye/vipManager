@@ -12,13 +12,13 @@
         </el-row>
         <el-row :gutter="20" type="flex" style="margin-top:20px;">
           <el-table :data="tableData" border style="width: 100%" tooltip-effect="light">
-            <el-table-column label="消费者" prop="user_id" show-overflow-tooltip>
+            <el-table-column label="消费者" prop="name" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="消费类型" prop="op_type" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="消费金额" prop="money" show-overflow-tooltip>
+            <el-table-column label="金额" prop="money" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="账户余额" show-overflow-tooltip>
+            <el-table-column label="账户余额" prop="balance" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="消费时间" prop="op_time" show-overflow-tooltip>
             </el-table-column>

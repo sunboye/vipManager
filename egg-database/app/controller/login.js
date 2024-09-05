@@ -10,8 +10,8 @@ class LoginController extends Controller {
     console.log(dataUsers);
     if (dataUsers) {
       ctx.body = ctx.service.common.formateReturn(dataUsers, 200, '登录成功');
-      if (dataUsers[0].token) {
-        ctx.set('token', dataUsers[0].token);
+      if (dataUsers[0].uuid) {
+        ctx.set('token', dataUsers[0].uuid);
       }
       ctx.set('Access-Control-Expose-Headers', 'token');
     } else {

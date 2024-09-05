@@ -216,7 +216,7 @@ export default {
         this.consumpForm.balance = parseFloat(parseFloat(this.radioData.balance).toFixed(2));
         this.consumpChange();
       } else {
-        this.$confirm('用户数据异常，请检查该用户数据!');
+        this.$confirm('用户数据异常，请检查用户数据!');
       }
     },
     consumpChange () {
