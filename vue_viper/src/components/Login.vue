@@ -41,7 +41,11 @@ export default {
     }
   },
   created () {
-    window.sessionStorage.clear()
+    if (sessionStorage.getItem('token') && sessionStorage.getItem('token') !== 'null') {
+      this.$router.push('/home')
+    } else {
+      sessionStorage.clear()
+    }
   },
   methods: {
     submitForm () {
@@ -54,7 +58,7 @@ export default {
               const dataTemp = res.data || {};
               if (dataTemp.token) {
                 this.$message.success(res.msg);
-                window.sessionStorage.setItem('token', dataTemp.token);
+                sessionStorage.setItem('token', dataTemp.token);
                 this.$router.push('/home')
               } else {
                 this.$message.error('获取token失败');

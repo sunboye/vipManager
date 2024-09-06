@@ -1,6 +1,12 @@
 {
 	"menus": [
 		{
+			"id": 121,
+			"authName": "首页",
+			"path": "welcome",
+			"icon": "el-icon-s-home"
+		},
+		{
 			"id": 125,
 			"authName": "会员管理",
 			"path": "users",
@@ -10,14 +16,16 @@
 					"authName": "会员列表",
 					"path": "users",
 					"children": [],
-					"order": null
+					"order": null,
+					"icon": "el-icon-user-solid"
 				},
         {
 					"id": 120,
 					"authName": "回收站",
 					"path": "recycle",
 					"children": [],
-					"order": null
+					"order": null,
+					"icon": "el-icon-delete-solid"
 				}
 			],
 			"order": 1
@@ -32,73 +40,33 @@
 					"authName": "角色列表",
 					"path": "roles",
 					"children": [],
-					"order": null
+					"order": null,
+					"icon": "el-icon-user-solid"
 				},
 				{
 					"id": 112,
 					"authName": "权限列表",
 					"path": "rights",
 					"children": [],
-					"order": null
+					"order": null,
+					"icon": "el-icon-user-solid"
 				}
 			],
 			"order": 2
 		},
 		{
-			"id": 101,
-			"authName": "商品管理",
-			"path": "goods",
-			"children": [
-				{
-					"id": 104,
-					"authName": "商品列表",
-					"path": "goods",
-					"children": [],
-					"order": 1
-				},
-				{
-					"id": 115,
-					"authName": "分类参数",
-					"path": "params",
-					"children": [],
-					"order": 2
-				},
-				{
-					"id": 121,
-					"authName": "商品分类",
-					"path": "categories",
-					"children": [],
-					"order": 3
-				}
-			],
-			"order": 3
-		},
-		{
-			"id": 102,
-			"authName": "订单管理",
-			"path": "orders",
-			"children": [
-				{
-					"id": 107,
-					"authName": "订单列表",
-					"path": "orders",
-					"children": [],
-					"order": null
-				}
-			],
-			"order": 4
-		},
-		{
 			"id": 145,
 			"authName": "数据统计",
 			"path": "reports",
+			"icon": "el-icon-s-data",
 			"children": [
 				{
 					"id": 146,
 					"authName": "数据报表",
 					"path": "reports",
 					"children": [],
-					"order": null
+					"order": null,
+					"icon": "el-icon-s-data"
 				}
 			],
 			"order": 5

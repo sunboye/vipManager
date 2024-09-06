@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>会员管理</el-breadcrumb-item>
       <el-breadcrumb-item>会员列表</el-breadcrumb-item>
     </el-breadcrumb>

@@ -14,22 +14,26 @@
                 </div>
                 <el-menu class="el-menu-vertical-demo" background-color="#333744" text-color="#fff" :router="true" :default-active="this.$route.path.slice(1)"
                     active-text-color="rgb(64, 158, 255)" mode="vertical" :unique-opened="true" :collapse="isCollapse">
-                    <el-menu-item :index="welcome.path" :key="welcome.id">
-                      <i class="el-icon-s-home"></i>
-                      <span slot="title">{{ welcome.authName }}</span>
-                    </el-menu-item>
-                    <el-submenu v-for="item in menulist" :index="item.id + ''" :key="item.id">
-                        <template slot="title">
-                            <i :class="iconClass(item)"></i>
-                            <span>{{item.authName}}</span>
-                        </template>
-                        <el-menu-item v-for="subitem in item.children" :index="subitem.path" :key="subitem.id">
+                    <div v-for="item in menulist" :index="item.id + ''" :key="item.id">
+                        <el-submenu v-if="item.children && item.children.length">
                             <template slot="title">
-                              <i :class="iconClass(subitem)"></i>
-                              <span>{{subitem.authName}}</span>
+                                <i :class="item.icon"></i>
+                                <span>{{item.authName}}</span>
+                            </template>
+                            <el-menu-item v-for="subitem in item.children" :index="subitem.path" :key="subitem.id">
+                                <template slot="title">
+                                <i :class="item.icon"></i>
+                                <span>{{subitem.authName}}</span>
+                                </template>
+                            </el-menu-item>
+                        </el-submenu>
+                        <el-menu-item v-else :index="item.path">
+                            <template slot="title">
+                                <i :class="item.icon"></i>
+                                <span>{{item.authName}}</span>
                             </template>
                         </el-menu-item>
-                    </el-submenu>
+                    </div>
                 </el-menu>
             </el-aside>
             <el-main>
@@ -44,61 +48,13 @@
 export default {
     data () {
         return {
-            welcome: {
-                id: 121,
-                authName: '首页',
-                path: 'welcome'
-            },
-            menulist: [
-              {
-                id: 125,
-                authName: '会员管理',
-                path: 'users',
-                children: [
-                  {
-                    id: 110,
-                    authName: '会员列表',
-                    path: 'users',
-                    children: [],
-                    order: null
-                  },
-                  {
-                    id: 120,
-                    authName: '回收站',
-                    path: 'recycle',
-                    children: [],
-                    order: null
-                  }
-                ],
-                order: 1
-              },
-              {
-                id: 145,
-                authName: '数据统计',
-                path: 'reports',
-                children: [
-                  {
-                    id: 146,
-                    authName: '数据报表',
-                    path: 'reports',
-                    children: [],
-                    order: null
-                  }
-                ],
-                order: 5
-              }
-            ],
-            iconList: {
-                users: 'el-icon-user-solid',
-                recycle: 'el-icon-delete-solid',
-                rights: 'el-icon-burger',
-                goods: 'el-icon-s-goods',
-                orders: 'el-icon-s-order',
-                reports: 'el-icon-s-data'
-            },
+            menulist: [],
             isCollapse: false,
             toggleBtn: 'el-icon-arrow-right'
         }
+    },
+    created () {
+        this.getMenuList()
     },
     methods: {
         Logout () {
@@ -107,6 +63,15 @@ export default {
         },
          iconClass (item) {
             return this.iconList[item.path] || 'el-icon-location'
+        },
+        getMenuList() {
+            this.$axios.get('/getMenus').then(res => {
+                if (res.success) {
+                    this.menulist = res.data || []
+                } else {
+                    this.$message.error(res.msg)
+                }
+            })
         },
         opearteCollapse () {
             this.isCollapse = !this.isCollapse

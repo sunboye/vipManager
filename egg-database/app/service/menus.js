@@ -1,14 +1,14 @@
 'use strict';
 
 const Service = require('egg').Service;
-const fs = require('fs');
+const path = require('path');
 
 class MenusService extends Service {
   async getMenusTree() {
     const { service } = this;
     console.log('getMenusTree');
-    const menus = await service.common.readJson('menus');
-    console.log('menus:' + menus);
+    const menus = await service.common.readJsonFile(path.resolve(__dirname, '../../static/menus.json'));
+    console.log(menus);
     return menus;
   }
 }

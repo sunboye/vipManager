@@ -1,4 +1,4 @@
 module.exports = app => {
   const { router, controller } = app;
-  router.post('/api/v1/menus', controller.menus.menus);
+  router.get('/api/v1/getMenus', controller.menus.menus);
 };
