@@ -3,16 +3,14 @@
 const Service = require('egg').Service;
 class CommonService extends Service {
   formateReturn(fData, status, msg, isList) {
-    let param = {
+    console.log(fData)
+    let response = {
       data: fData || null,
-      meta: { msg: msg, status: status },
+      msg,
+      status,
+      success: status === 200 || status === '200'
     };
-    if (isList) {
-      console.log('isList:' + isList);
-      param.total = fData.total;
-      param.pagenum = fData.pagenum;
-    }
-    return param;
+    return response;
   }
 }
 

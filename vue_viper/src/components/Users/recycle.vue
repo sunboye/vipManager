@@ -234,8 +234,8 @@ export default {
       getUserList (isSearch) {
           var params = {
               query: this.searchValue || '',
-              pagenum: !isSearch ? this.pagination.currentPage : 1,
-              pagesize: this.pagination.pageSize
+              current: !isSearch ? this.pagination.currentPage : 1,
+              size: this.pagination.pageSize
           }
           this.$axios.get('vipers', {params}).then((res) => {
               var data = res.data;

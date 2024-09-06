@@ -2,7 +2,8 @@ module.exports = {
   async getViperListDB(app, params) {
     const table = app.config.mysql.tables.vipers;
     let count = 0;
-    params.offset = (params.pagenum - 1) * params.limit
+    console.log(params)
+    params.offset = (params.current - 1) * params.limit
     let sqlStr = "SELECT * FROM " + table + " LIMIT " + params.offset + "," + params.limit;
     let countStr = "SELECT COUNT(*) as count FROM " + table;
     if (params.query) {
@@ -13,9 +14,11 @@ module.exports = {
     console.log(countStr);
     count = await app.mysql.query(countStr);
     const data = await app.mysql.query(sqlStr);
-    data.total = count[0].count;
-    data.pagenum = Number(params.pagenum);
-    return data;
+    return {
+      records: data,
+      total: count.length ? count[0].count || 0 : 0,
+      current: Number(params.current)
+    };
   },
 
   async postViperMoneyDB(app, params) {
@@ -33,7 +36,7 @@ module.exports = {
       sqlStr1 = `UPDATE ${table1} SET balance=convert(balance+${opMoney},decimal(10,2)) WHERE id='${vvid}'`;
     }
     const data = await app.mysql.query(sqlStr1);
-    sqlStr2 = `INSERT INTO ${table2} (user_id,op_type,money,op_result,op_time) VALUES ('${vvid}',${params.opType},${opMoney},${opResult},UNIX_TIMESTAMP(now()))`;
+    sqlStr2 = `INSERT INTO ${table2} (user_id,op_type,money,op_result) VALUES ('${vvid}',${params.opType},${opMoney},${opResult})`;
     if (data.changedRows) {
       await app.mysql.query(sqlStr2);
     } else {

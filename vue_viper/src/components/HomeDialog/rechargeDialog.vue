@@ -50,7 +50,7 @@
               :current-page="pagination.currentPage"
               :page-sizes="pagination.pageSizes"
               :page-size="pagination.pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
+              layout="total, prev, pager, next, jumper"
               :total="pagination.total">
           </el-pagination>
         </el-row>
@@ -191,17 +191,20 @@ export default {
       this.isLoading = true;
       var params = {
           query: this.searchValue || '',
-          pagenum: !isSearch ? this.pagination.currentPage : 1,
-          pagesize: this.pagination.pageSize
+          current: !isSearch ? this.pagination.currentPage : 1,
+          size: this.pagination.pageSize
       }
-      this.$axios.get('vipers', {params}).then((res) => {
-          this.isLoading = false;
-          var data = res.data;
-          this.pagination.total = data.total;
-          this.tableData = data.data;
-          this.getCurrentRow(this.tableData[0])
-          this.radio = this.tableData[0].id;
-      });
+      this.$axios.get('/vipers', {params}).then((res) => {
+        if (res.success) {
+            const dataTemp = res.data && res.data.records && res.data.records.length ? res.data.records : [];
+            this.pagination.total = res.data.total;
+            this.radio = dataTemp.length ? dataTemp[0].id : null
+            this.getCurrentRow(dataTemp[0])
+            this.tableData = dataTemp;
+          }
+      }).finally(() => {
+        this.isLoading = false;
+      })
     },
     getCurrentRow (row) {
       console.log(row)

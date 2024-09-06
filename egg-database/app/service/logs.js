@@ -8,8 +8,8 @@ class LogsService extends Service {
     const {ctx, app} = this;
     const params = {}
     console.dir(ctx.request.query);
-    params.limit = ctx.request.query.pagesize
-    params.pagenum = Number(ctx.request.query.pagenum);
+    params.limit = ctx.request.query.size
+    params.current = Number(ctx.request.query.current);
     params.query = ctx.request.query.query
     const logsList = await getLogsDB(app, params);
     return logsList;

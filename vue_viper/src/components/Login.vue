@@ -48,23 +48,20 @@ export default {
       this.$refs.loginFormRef.validate((valid) => {
         if (valid) {
           this.$router.push('/home')
-          this.$axios.post('login', this.Loginform).then((res) => {
-              const data = res.data;
-              const token = res.headers.token;
-              if (data.meta && data.meta.status === 200 && token) {
-                  this.$message.success(data.meta.msg);
-                  window.sessionStorage.setItem('token', token);
-                  this.$router.push('/home')
-              } else if (!token) {
-                this.$message.error('获取token失败');
+          this.$axios.post('/login', this.Loginform).then((res) => {
+            // const token = res.headers.token;
+            if (res.success) {
+              const dataTemp = res.data || {};
+              if (dataTemp.token) {
+                this.$message.success(res.msg);
+                window.sessionStorage.setItem('token', dataTemp.token);
+                this.$router.push('/home')
               } else {
-                this.$message.error(data.meta.msg);
+                this.$message.error('获取token失败');
               }
-          },
-          (error) => {
-              console.log(error);
-              this.$message.error(error.message);
-              return false;
+            } else {
+              this.$message.error(res.msg);
+            }
           });
         } else {
           console.log('error submit!!');

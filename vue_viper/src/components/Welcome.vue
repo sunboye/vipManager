@@ -21,6 +21,9 @@
             <el-table-column label="账户余额" prop="balance" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="消费时间" prop="op_time" show-overflow-tooltip>
+              <template slot-scope="scope">
+                <span>{{ scope.row.op_time }}</span>
+              </template>
             </el-table-column>
             <el-table-column label="操作结果" prop="op_result" show-overflow-tooltip>
             </el-table-column>
@@ -139,17 +142,21 @@ export default {
   methods: {
     getLogList (isSearch) {
       this.isLoading = true;
-      var params = {
+      const params = {
           query: this.searchValue || '',
-          pagenum: !isSearch ? this.pagination.currentPage : 1,
-          pagesize: this.pagination.pageSize
+          current: !isSearch ? this.pagination.currentPage : 1,
+          size: this.pagination.pageSize
       }
-      this.$axios.get('logs', {params}).then((res) => {
-          this.isLoading = false;
-          var data = res.data;
-          this.pagination.total = data.total;
-          this.tableData = data.data;
-          this.radio = this.tableData[0].id;
+      this.$axios.get('/logs', {params}).then((res) => {
+        if (res.success) {
+          const dataTemp = res.data && res.data.records && res.data.records.length ? res.data.records : [];
+          this.pagination.total = res.data.total;
+          this.pagination.currentPage = res.data.current;
+          this.radio = dataTemp.length ? dataTemp[0].id : null
+          this.tableData = dataTemp;
+        }
+      }).finally(() => {
+        this.isLoading = false;
       });
     },
     handleClose () {
@@ -159,8 +166,8 @@ export default {
     },
     countConfirm () {
       const refForm = this.$refs.countForm;
-      refForm.$refs.consumpForm.validate((valida) => {
-        if (valida) {
+      refForm.$refs.consumpForm.validate((valid) => {
+        if (valid) {
           const formData = refForm.consumpForm;
           const viperData = refForm.radioData;
           if (formData.endBalance > 0) {
@@ -169,13 +176,13 @@ export default {
               opType: 1,
               money: formData.realConsump
             }
-            this.$axios.post('vipers/oprate', params).then((res) => {
-              if (res.data.data) {
+            this.$axios.post('/vipers/oprate', params).then((res) => {
+              if (res.success) {
                 this.getLogList();
                 this.consumpVisible = false;
-                this.$message.success(res.data.meta.msg);
+                this.$message.success(res.msg);
               } else {
-                this.$message.error(res.data.meta.msg);
+                this.$message.error(res.msg);
               }
             });
           } else {
@@ -196,13 +203,13 @@ export default {
               opType: 2,
               money: formData.realConsump
             }
-            this.$axios.post('vipers/oprate', params).then((res) => {
-              if (res.data.data) {
+            this.$axios.post('/vipers/oprate', params).then((res) => {
+              if (res.success) {
                 this.getLogList();
                 this.rechargeVisible = false;
-                this.$message.success(res.data.meta.msg);
+                this.$message.success(res.msg);
               } else {
-                this.$message.error(res.data.meta.msg);
+                this.$message.error(res.msg);
               }
             });
           } else {

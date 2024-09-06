@@ -236,15 +236,20 @@ export default {
             this.isLoading = true;
             var params = {
                 query: this.searchValue || '',
-                pagenum: !isSearch ? this.pagination.currentPage : 1,
-                pagesize: this.pagination.pageSize
+                current: !isSearch ? this.pagination.currentPage : 1,
+                size: this.pagination.pageSize
             }
-            this.$axios.get('vipers', {params}).then((res) => {
-                this.isLoading = false;
-                var data = res.data;
-                this.pagination.total = data.total;
-                this.tableData = data.data;
-            });
+            this.$axios.get('/vipers', {params}).then((res) => {
+                if (res.success) {
+                    const dataTemp = res.data && res.data.records && res.data.records.length ? res.data.records : [];
+                    this.pagination.total = res.data.total;
+                    this.pagination.currentPage = res.data.current;
+                    this.radio = dataTemp.length ? dataTemp[0].id : null
+                    this.tableData = dataTemp;
+                    }
+                }).finally(() => {
+                    this.isLoading = false;
+                });
         },
         addUser () {
             this.$refs.userForm.validate((valid) => {
