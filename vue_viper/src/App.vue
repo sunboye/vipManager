@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Home></Home>
+    <router-view v-if="$route.path === '/' || $route.path === '/login'"></router-view>
+    <Home v-else></Home>
   </div>
 </template>
 
@@ -11,7 +12,8 @@ export default {
   name: 'app',
   components: {
     Home
-  }
+  },
+  created() {}
 }
 </script>
 

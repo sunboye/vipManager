@@ -24,8 +24,12 @@ module.exports = appInfo => {
     csrf: {
       enable: false
     },
-  　domainWhiteList: [ '*' ]
-　};
+    domainWhiteList: [ '*' ]
+  };
+  config.jwt = {
+    secret: 'secret_key_qiangqiang', // 用于签名的密钥
+    expiresIn: '7d', // Token 过期时间
+  };
   config.cors = {
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
@@ -34,7 +38,9 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1628171874901_5541';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [
+    'jwtMiddleware'
+  ];
 
   // add your user config here
   const userConfig = {

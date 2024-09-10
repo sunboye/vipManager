@@ -4,7 +4,6 @@ module.exports = {
     const sqlStr = "SELECT * FROM " + table + " WHERE name='" + params.name + "' AND password='" + params.password + "'";
     console.log('sqlStr:' + sqlStr);
     const data = await app.mysql.query(sqlStr);
-    console.log(data);
     return data;
   }
 }

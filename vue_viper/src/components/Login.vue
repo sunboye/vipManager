@@ -42,7 +42,7 @@ export default {
   },
   created () {
     if (sessionStorage.getItem('token') && sessionStorage.getItem('token') !== 'null') {
-      this.$router.push('/home')
+      this.$router.push('/welcome')
     } else {
       sessionStorage.clear()
     }
@@ -51,7 +51,7 @@ export default {
     submitForm () {
       this.$refs.loginFormRef.validate((valid) => {
         if (valid) {
-          this.$router.push('/home')
+          this.$router.push('/welcome')
           this.$axios.post('/login', this.Loginform).then((res) => {
             // const token = res.headers.token;
             if (res.success) {
@@ -59,7 +59,7 @@ export default {
               if (dataTemp.token) {
                 this.$message.success(res.msg);
                 sessionStorage.setItem('token', dataTemp.token);
-                this.$router.push('/home')
+                this.$router.push('/welcome')
               } else {
                 this.$message.error('获取token失败');
               }
@@ -81,47 +81,47 @@ export default {
 </script>
 
 <style scoped>
-    .login-contain {
-        width: 500px;
-        height: 350px;
-        background-color: #fff;
-        border-radius: 4px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    .login-logo {
-        border: 1px solid silver;
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        overflow: hidden;
-        box-shadow: 0px 0px 9px 0px;
-        position: absolute;
-        left: 50%;
-        padding:10px;
-        transform: translate(-50%, -50%);
-        background-color: white;
-    }
-    .login-logo img {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        border: 1px solid silver;
-        background-color: rgb(248, 248, 248);
-    }
-    .btns {
-        display: flex;
-        justify-content: flex-end;
-    }
-    .login-form {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        padding: 20px;
-    }
-    .el-input {
-        width: 460px; 
-    }
+  .login-contain {
+    width: 500px;
+    height: 350px;
+    background-color: #fff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .login-logo {
+    border: 1px solid silver;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0px 0px 9px 0px;
+    position: absolute;
+    left: 50%;
+    padding:10px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+  }
+  .login-logo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid silver;
+    background-color: rgb(248, 248, 248);
+  }
+  .btns {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .login-form {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 20px;
+  }
+  .el-input {
+    width: 460px;
+  }
 </style>
