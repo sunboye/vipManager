@@ -5,17 +5,17 @@ const routes = [
     },
     {
         path: '/login',
-        name: 'Login',
+        name: 'login',
         component: () => import('../components/Login.vue')
     },
     {
         path: '/welcome',
-        name: 'Welcome',
+        name: 'welcome',
         component: () => import('../components/Welcome.vue'),
     },
     {
         path: '/users',
-        name: 'Users',
+        name: 'users',
         component: () => import('../components/Users/Users.vue')
     },
     {

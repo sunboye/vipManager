@@ -9,7 +9,9 @@
 		{
 			"id": 125,
 			"authName": "会员管理",
-			"path": "users",
+			"path": "userManage",
+			"icon": "el-icon-user-solid",
+			"order": 1,
 			"children": [
 				{
 					"id": 110,
@@ -27,32 +29,7 @@
 					"order": null,
 					"icon": "el-icon-delete-solid"
 				}
-			],
-			"order": 1
-		},
-		{
-			"id": 103,
-			"authName": "权限管理",
-			"path": "rights",
-			"children": [
-				{
-					"id": 111,
-					"authName": "角色列表",
-					"path": "roles",
-					"children": [],
-					"order": null,
-					"icon": "el-icon-user-solid"
-				},
-				{
-					"id": 112,
-					"authName": "权限列表",
-					"path": "rights",
-					"children": [],
-					"order": null,
-					"icon": "el-icon-user-solid"
-				}
-			],
-			"order": 2
+			]
 		},
 		{
 			"id": 145,
@@ -63,7 +40,7 @@
 				{
 					"id": 146,
 					"authName": "数据报表",
-					"path": "reports",
+					"path": "reportstatic",
 					"children": [],
 					"order": null,
 					"icon": "el-icon-s-data"
