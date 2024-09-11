@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-
+const path = require('path');
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -39,9 +39,20 @@ module.exports = appInfo => {
 
   // add your middleware config here
   config.middleware = [
-    'jwtMiddleware'
+    'jwtMiddleware',
+    'loggerMiddleware'
   ];
-
+  config.logger = {
+    dir: path.join(appInfo.root, 'logs') // 日志文件存放目录
+    // contextFormatter: meta => { return `${meta.date}[${meta.traceId}] ${meta.method} ${meta.url} ${meta.status} ${meta.responseTime}ms` }
+  }
+  // config.loggerMiddleware = {};
+  config.logrotator = {
+    filesRotateByHour: [
+      path.join(appInfo.root, 'logs', `${appInfo.name}-web.log`),
+    ],
+    maxFiles: 100 // 最多保留文件数量
+  }
   // add your user config here
   const userConfig = {
     // myAppName: 'eggqq',

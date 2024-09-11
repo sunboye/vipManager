@@ -9,7 +9,7 @@ module.exports = {
   // }
   jwt: {
     enable: true,
-    package: 'egg-jwt',
+    package: 'egg-jwt'
   },
   cors: {
     enable: true,

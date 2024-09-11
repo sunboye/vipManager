@@ -8,7 +8,7 @@ class MenusService extends Service {
     const { service } = this;
     console.log('getMenusTree');
     const menus = await service.common.readJsonFile(path.resolve(__dirname, '../../static/menus.json'));
-    console.log(menus);
+    // console.log(menus);
     return menus;
   }
 }
